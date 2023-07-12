@@ -2,6 +2,7 @@ import { conditional } from '@silverhand/essentials';
 import { useMemo } from 'react';
 
 import Success from '@/assets/icons/success.svg';
+import PlanName from '@/components/PlanName';
 import { enterprisePlanTableData, planTableGroupKeyMap } from '@/consts/subscriptions';
 import DynamicT from '@/ds-components/DynamicT';
 import Table from '@/ds-components/Table';
@@ -12,7 +13,6 @@ import {
   type SubscriptionPlanTableGroupKey,
 } from '@/types/subscriptions';
 
-import PlanName from './PlanName';
 import PlanQuotaGroupKeyLabel from './PlanQuotaGroupKeyLabel';
 import PlanQuotaKeyLabel from './PlanQuotaKeyLabel';
 import * as styles from './index.module.scss';
