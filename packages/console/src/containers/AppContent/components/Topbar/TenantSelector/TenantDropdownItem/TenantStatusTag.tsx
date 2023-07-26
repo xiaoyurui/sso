@@ -4,33 +4,30 @@ import { useMemo } from 'react';
 import DynamicT from '@/ds-components/DynamicT';
 import Tag from '@/ds-components/Tag';
 import useInvoices from '@/hooks/use-invoices';
-import useSubscriptionPlan from '@/hooks/use-subscription-plan';
 import useSubscriptionUsage from '@/hooks/use-subscription-usage';
+import { type SubscriptionPlan } from '@/types/subscriptions';
 import { getLatestUnpaidInvoice } from '@/utils/subscription';
-
-import Skeleton from './Skeleton';
 
 type Props = {
   tenantId: string;
+  tenantPlan: SubscriptionPlan;
   className?: string;
 };
 
-function TenantStatusTag({ tenantId, className }: Props) {
+function TenantStatusTag({ tenantId, tenantPlan, className }: Props) {
   const { data: usage, error: fetchUsageError } = useSubscriptionUsage(tenantId);
   const { data: invoices, error: fetchInvoiceError } = useInvoices(tenantId);
-  const { data: subscriptionPlan, error: fetchSubscriptionError } = useSubscriptionPlan(tenantId);
 
   const isLoadingUsage = !usage && !fetchUsageError;
   const isLoadingInvoice = !invoices && !fetchInvoiceError;
-  const isLoadingSubscription = !subscriptionPlan && !fetchSubscriptionError;
 
   const latestUnpaidInvoice = useMemo(
     () => conditional(invoices && getLatestUnpaidInvoice(invoices)),
     [invoices]
   );
 
-  if (isLoadingUsage || isLoadingInvoice || isLoadingSubscription) {
-    return <Skeleton />;
+  if (isLoadingUsage || isLoadingInvoice) {
+    return null;
   }
 
   /**
@@ -48,12 +45,12 @@ function TenantStatusTag({ tenantId, className }: Props) {
     );
   }
 
-  if (subscriptionPlan && usage) {
+  if (usage) {
     const { activeUsers } = usage;
 
     const {
       quota: { mauLimit },
-    } = subscriptionPlan;
+    } = tenantPlan;
 
     const isMauExceeded = mauLimit !== null && activeUsers >= mauLimit;
 
