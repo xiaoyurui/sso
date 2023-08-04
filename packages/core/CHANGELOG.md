@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.7.1
+
+### Patch Changes
+
+- 0b519e548: allow non-http origins for application CORS
+- Updated dependencies [0b519e548]
+  - @logto/console@1.5.2
+  - @logto/schemas@1.7.1
+  - @logto/cli@1.7.1
+
 ## 1.7.0
 
 ### Minor Changes

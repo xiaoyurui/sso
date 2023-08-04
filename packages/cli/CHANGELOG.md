@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.7.1
+
+### Patch Changes
+
+- Updated dependencies [0b519e548]
+  - @logto/schemas@1.7.1
+
 ## 1.7.0
 
 ### Minor Changes
